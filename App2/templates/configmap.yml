@@ -1,0 +1,13 @@
+{{- if .Values.configmap.enabled -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "App2.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "App2.name" . }}
+    helm.sh/chart: {{ include "App2.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+data:
+  DB_PASSWORD: {{ .Values.configmap.DB_URL | quote }} 
+{{- end }}

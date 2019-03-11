@@ -1,0 +1,41 @@
+replicaCount: 1
+image:
+  repository: tenzer/http-echo-test
+  tag: latest
+  pullPolicy: Always
+
+nameOverride: ""
+fullnameOverride: ""
+
+container:
+  port: "8080"
+
+livenessProbe:
+  path: /healthCheck
+readinessProbe:
+  path: /healthCheck
+
+secret:
+  enabled: true
+  DB_PASSWORD: password
+configmap:
+  enabled: true
+  DB_URL: db://db-url:5776/db_name
+
+service:
+  type: NodePort
+  port: "8080"
+
+ingress:
+  enabled: false
+  annotations: {}
+
+  tls: []
+
+resources: {}
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
